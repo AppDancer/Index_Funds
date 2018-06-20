@@ -1,30 +1,34 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 26
+
+
+
     defaultConfig {
-        applicationId "com.keye.router.baserouterarchitecture"
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.appVersion.versionCode
         versionName rootProject.ext.appVersion.versionName
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':lib_common')
-
-    if(!isModule.toBoolean()){
-        implementation project(':module_main')
-    }
+    api rootProject.ext.dependencies.appcompat_v7
+    api rootProject.ext.dependencies.support_design
+    api rootProject.ext.dependencies.constraintLayout
 
     testImplementation rootProject.ext.dependencies.testJunit
     androidTestImplementation  rootProject.ext.dependencies.textRunner

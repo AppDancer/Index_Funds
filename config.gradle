@@ -1,0 +1,23 @@
+ext {
+    appVersion = [
+            versionCode: 1,
+            versionName: "1.0.0"
+    ]
+
+    android = [
+            compileSdkVersion: 26,
+            minSdkVersion    : 18,
+            targetSdkVersion : 26,
+    ]
+
+    dependencies = [
+            appcompat_v7       : 'com.android.support:appcompat-v7:26.1.0',
+            constraintLayout   : 'com.android.support.constraint:constraint-layout:1.1.1',
+            support_design             : 'com.android.support:design:26.1.0',
+            support_annotations: 'com.android.support:support-annotations:26.1.0',
+
+            testJunit          : 'junit:junit:4.12',
+            textRunner         : 'com.android.support.test:runner:1.0.0',
+            androidTestEspresso: 'com.android.support.test.espresso:espresso-core:3.0.0',
+    ]
+}
