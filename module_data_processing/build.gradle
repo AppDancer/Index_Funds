@@ -41,10 +41,10 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':lib_common')
-
     testImplementation rootProject.ext.dependencies.testJunit
-    androidTestImplementation  rootProject.ext.dependencies.textRunner
+    androidTestImplementation rootProject.ext.dependencies.textRunner
     androidTestImplementation rootProject.ext.dependencies.androidTestEspresso
+    implementation files('libs/jxl.jar')
 }
