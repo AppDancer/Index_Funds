@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-
 android {
     compileSdkVersion 26
 
@@ -29,6 +28,10 @@ dependencies {
     api rootProject.ext.dependencies.appcompat_v7
     api rootProject.ext.dependencies.support_design
     api rootProject.ext.dependencies.constraintLayout
+    api rootProject.ext.dependencies.greendao
+    api rootProject.ext.dependencies.greendao_generator
+    api rootProject.ext.dependencies.rxandroid
+    api rootProject.ext.dependencies.rxjava
 
     testImplementation rootProject.ext.dependencies.testJunit
     androidTestImplementation  rootProject.ext.dependencies.textRunner
