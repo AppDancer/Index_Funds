@@ -6,6 +6,7 @@ import com.keye.router.lib_common.base.BaseApplication;
 import com.keye.router.main.excel.bean.DaoMaster;
 import com.keye.router.main.excel.bean.DaoSession;
 import com.keye.router.main.excel.bean.Sheet;
+import com.keye.router.main.excel.db.ExcelDBHandler;
 
 import org.greenrobot.greendao.rx.RxDao;
 
@@ -20,25 +21,7 @@ public class DebugMainApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        initGreenDao();
-
-        initData();
+        ExcelDBHandler.getInstance().initSheetDB(this);
     }
 
-    private void initData() {
-        DaoSession session = getDaoSession();
-        RxDao<Sheet, Long> sheetDao = session.getSheetDao().rx();
-
-    }
-
-    private void initGreenDao() {
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "IndexFunds.db");
-        SQLiteDatabase db = helper.getWritableDatabase();
-        DaoMaster daoMaster = new DaoMaster(db);
-        daoSession = daoMaster.newSession();
-    }
-
-    public DaoSession getDaoSession() {
-        return daoSession;
-    }
 }
