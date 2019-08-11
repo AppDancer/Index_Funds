@@ -1,14 +1,13 @@
 package com.keye.router.debug;
 
-import android.database.sqlite.SQLiteDatabase;
-
+import com.keye.router.lib_common.base.AppConfig;
 import com.keye.router.lib_common.base.BaseApplication;
-import com.keye.router.main.excel.bean.DaoMaster;
+import com.keye.router.lib_common.base.utils.Preferences;
 import com.keye.router.main.excel.bean.DaoSession;
-import com.keye.router.main.excel.bean.Sheet;
+import com.keye.router.main.excel.constants.ProcessConfig;
 import com.keye.router.main.excel.db.ExcelDBHandler;
 
-import org.greenrobot.greendao.rx.RxDao;
+import static com.keye.router.main.excel.constants.Constants.IS_FIRST_INIT;
 
 
 /**
@@ -21,7 +20,13 @@ public class DebugMainApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        ExcelDBHandler.getInstance().initSheetDB(this);
+        ExcelDBHandler.getInstance().init(this);
+        new ProcessConfig().init();
+        boolean isfirstInit = Preferences.getBoolean(IS_FIRST_INIT, true);
+        if (isfirstInit) {//初始化DB数据
+            ExcelDBHandler.getInstance().checkInitSheet(this);
+            Preferences.saveBoolean(IS_FIRST_INIT, false);
+        }
     }
 
 }

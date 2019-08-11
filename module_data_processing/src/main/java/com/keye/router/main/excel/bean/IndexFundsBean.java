@@ -5,16 +5,20 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
 
+import java.util.Date;
+
 /**
- * Entity mapped to table "Sheet".
+ * Entity mapped to table "IndexFundsBean".
  */
 @Entity(indexes = {
         @Index(value = " date DESC", unique = true)
 })
-public class Sheet {
+public class IndexFundsBean {
 
     @Id(autoincrement = true)
     private Long id;
+
+    private String IndexFundsName;
 
     private java.util.Date date;
 
@@ -38,11 +42,12 @@ public class Sheet {
 
     private Float CMV;//流通市值[亿]]
 
-    @Generated(hash = 448565035)
-    public Sheet(Long id, java.util.Date date, Float closingPrice, Float PE,
-                 Float PB, Float PCF, Float PS, Float EPS, Float netAssets, Float ROE,
-                 Float GMV, Float CMV) {
+    @Generated(hash = 709255657)
+    public IndexFundsBean(Long id, String IndexFundsName, java.util.Date date,
+                          Float closingPrice, Float PE, Float PB, Float PCF, Float PS, Float EPS,
+                          Float netAssets, Float ROE, Float GMV, Float CMV) {
         this.id = id;
+        this.IndexFundsName = IndexFundsName;
         this.date = date;
         this.closingPrice = closingPrice;
         this.PE = PE;
@@ -56,8 +61,8 @@ public class Sheet {
         this.CMV = CMV;
     }
 
-    @Generated(hash = 1314343206)
-    public Sheet() {
+    @Generated(hash = 1195362121)
+    public IndexFundsBean() {
     }
 
     public Long getId() {
@@ -66,6 +71,14 @@ public class Sheet {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getIndexFundsName() {
+        return this.IndexFundsName;
+    }
+
+    public void setIndexFundsName(String IndexFundsName) {
+        this.IndexFundsName = IndexFundsName;
     }
 
     public java.util.Date getDate() {
@@ -154,5 +167,24 @@ public class Sheet {
 
     public void setCMV(Float CMV) {
         this.CMV = CMV;
+    }
+
+    @Override
+    public String toString() {
+        return "IndexFundsBean{" +
+                "id=" + id +
+                ", IndexFundsName='" + IndexFundsName + '\'' +
+                ", date=" + date +
+                ", closingPrice=" + closingPrice +
+                ", PE=" + PE +
+                ", PB=" + PB +
+                ", PCF=" + PCF +
+                ", PS=" + PS +
+                ", EPS=" + EPS +
+                ", netAssets=" + netAssets +
+                ", ROE=" + ROE +
+                ", GMV=" + GMV +
+                ", CMV=" + CMV +
+                '}';
     }
 }
