@@ -30,10 +30,7 @@ import rx.functions.Action1;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-//@RunWith(MockitoJUnitRunner.class)
 public class ExampleUnitTest {
-    //    @Mock
-//    SharedPreferences.Editor mMockEditor
     @Test
     public void readXls() throws Exception {
         ExcelManager instance = ExcelManager.getInstance();
@@ -76,6 +73,10 @@ public class ExampleUnitTest {
         }
     }
 
+    /**
+     * 单元测试时，需要修改时间格式：yyyy-MM-dd
+     * {@link SheetRepository#analyzeXls(String)} line: 98
+     */
     @Test
     public void testSheetRepository() {
         final long startTime = System.currentTimeMillis();
