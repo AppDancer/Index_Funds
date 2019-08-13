@@ -60,7 +60,7 @@ public class ExcelDBHandler implements IDBHandler {
 
     public void checkInitSheet(Context context) {
         final long startTime = System.currentTimeMillis();
-        SheetRepository sheetRepository = new SheetRepository();
+        SheetRepository sheetRepository =  SheetRepository.getInstance();
         sheetRepository.analyzeXls(Constants.SHANGHAI_FUNDS_PATH)
                 .subscribe(new Action1<Map<String, List<IndexFundsBean>>>() {
                     @Override
@@ -69,7 +69,7 @@ public class ExcelDBHandler implements IDBHandler {
                         while (iterator.hasNext()) {
                             Map.Entry<String, List<IndexFundsBean>> sheet = iterator.next();
                             List<IndexFundsBean> value = sheet.getValue();
-                            daoSession.getIndexFundsBeanDao().rx().insertInTx(value);
+                            daoSession.getIndexFundsBeanDao().insertInTx(value);
 //                            AppLogs.d(Constants.DB_LOG_KEY,value.toString());
                             AppLogs.d(Constants.DB_LOG_KEY,"解析总时长：" + (System.currentTimeMillis() - startTime));
                         }

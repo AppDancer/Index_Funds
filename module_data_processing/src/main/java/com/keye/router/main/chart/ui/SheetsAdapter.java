@@ -25,13 +25,21 @@ public class SheetsAdapter extends RecyclerView.Adapter<SheetsAdapter.ViewHolder
     }
 
     public void setData(List<IndexFundsBean> data) {
-        mValues.addAll(data);
+        if (data != null) {
+            mValues.addAll(data);
+            notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_sheet_list, parent, false);
+                .inflate(R.layout.conmon_sheet_item_list, parent, false);
         return new ViewHolder(view);
     }
 
@@ -55,7 +63,7 @@ public class SheetsAdapter extends RecyclerView.Adapter<SheetsAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return mValues.size()+5;
+        return mValues.size() ;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

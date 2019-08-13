@@ -64,7 +64,7 @@ public class SheetChartActivity extends AppCompatActivity implements SheetFragme
         }
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container, mode == MODE_SHEET ? sheetFragment : chartFragment)
-                .addToBackStack(null)
+//                .addToBackStack(null)
                 .commitAllowingStateLoss();
     }
 

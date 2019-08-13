@@ -16,6 +16,6 @@
             android:layout_marginRight="16dp"
             app:layoutManager="LinearLayoutManager"
             tools:context="com.keye.router.main.chart.ui.SheetFragment"
-            tools:listitem="@layout/fragment_sheet_list" />
+            tools:listitem="@layout/conmon_sheet_item_list" />
     </android.support.constraint.ConstraintLayout>
 </layout>

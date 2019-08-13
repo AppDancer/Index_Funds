@@ -2,12 +2,9 @@ package com.keye.router.main.chart.ui;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +24,7 @@ public class SheetFragment extends Fragment implements ISheetsContract.ISheetVie
     private String mSheetName;
     private OnListFragmentInteractionListener mListener;
     public SheetItemLayoutBinding binding;
+    private SheetsAdapter adapter;
 
     public SheetFragment() {
     }
@@ -53,12 +51,13 @@ public class SheetFragment extends Fragment implements ISheetsContract.ISheetVie
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.sheet_item_layout, container, false);
+        adapter = new SheetsAdapter(mListener);
 
         binding.sheetRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.sheetRecyclerview.setAdapter(new SheetsAdapter(mListener));
+        binding.sheetRecyclerview.setAdapter(adapter);
 
         if (presenter != null) {
-            presenter.start();
+            presenter.loadSheetDB(mSheetName);
         }
         return binding.getRoot();
     }
@@ -83,6 +82,13 @@ public class SheetFragment extends Fragment implements ISheetsContract.ISheetVie
     @Override
     public void setPresenter(ISheetsContract.ISheetPresenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Override
+    public void updataData(List<IndexFundsBean> indexFundsBeans) {
+        if (adapter != null) {
+            adapter.setData(indexFundsBeans);
+        }
     }
 
     public interface OnListFragmentInteractionListener {
