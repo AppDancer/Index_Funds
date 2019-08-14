@@ -5,6 +5,9 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
 
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -186,5 +189,9 @@ public class IndexFundsBean {
                 ", GMV=" + GMV +
                 ", CMV=" + CMV +
                 '}';
+    }
+
+    public String toDateForm() {
+        return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }
 }
