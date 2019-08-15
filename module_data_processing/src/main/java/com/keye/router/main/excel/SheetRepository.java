@@ -1,7 +1,6 @@
 package com.keye.router.main.excel;
 
 import android.app.Application;
-import android.databinding.ObservableList;
 import android.text.TextUtils;
 
 import com.keye.router.lib_common.base.AppConfig;
