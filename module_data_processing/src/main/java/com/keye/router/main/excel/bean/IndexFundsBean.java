@@ -14,7 +14,7 @@ import java.util.Date;
  * Entity mapped to table "IndexFundsBean".
  */
 @Entity(indexes = {
-        @Index(value = " date DESC", unique = true)
+//        @Index(value = " date DESC", unique = true)
 })
 public class IndexFundsBean {
 
