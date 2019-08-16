@@ -11,17 +11,13 @@ import com.keye.router.main.excel.bean.IndexFundsBean;
 import com.keye.router.main.excel.constants.Constants;
 import com.keye.router.main.excel.db.base.IDBHandler;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func1;
 
@@ -58,21 +54,41 @@ public class ExcelDBHandler implements IDBHandler {
         daoSession = daoMaster.newSession();
     }
 
-    public void checkInitSheet(Context context) {
+    public void checkInitSheet(Context context, final CallBack callBack) {
         final long startTime = System.currentTimeMillis();
-        SheetRepository sheetRepository =  SheetRepository.getInstance();
+        SheetRepository sheetRepository = SheetRepository.getInstance();
         sheetRepository.analyzeXls(Constants.SHANGHAI_FUNDS_PATH)
-                .subscribe(new Action1<Map<String, List<IndexFundsBean>>>() {
+                .flatMap(new Func1<Map<String, List<IndexFundsBean>>, Observable<Map.Entry<String, List<IndexFundsBean>>>>() {
                     @Override
-                    public void call(Map<String, List<IndexFundsBean>> data) {
-                        Iterator<Map.Entry<String, List<IndexFundsBean>>> iterator = data.entrySet().iterator();
-                        while (iterator.hasNext()) {
-                            Map.Entry<String, List<IndexFundsBean>> sheet = iterator.next();
-                            List<IndexFundsBean> value = sheet.getValue();
-                            daoSession.getIndexFundsBeanDao().insertInTx(value);
+                    public Observable<Map.Entry<String, List<IndexFundsBean>>> call(Map<String, List<IndexFundsBean>> data) {
+                        return Observable.from(data.entrySet());//依次插入指数表
+                    }
+                })
+                .flatMap(new Func1<Map.Entry<String, List<IndexFundsBean>>, Observable<Iterable<IndexFundsBean>>>() {
+                    @Override
+                    public Observable<Iterable<IndexFundsBean>> call(Map.Entry<String, List<IndexFundsBean>> sheet) {
+                        List<IndexFundsBean> value = sheet.getValue();
+                        return daoSession.getIndexFundsBeanDao().rx().insertInTx(value);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Iterable<IndexFundsBean>>() {
+                    @Override
+                    public void onCompleted() {
+                        if (callBack != null)
+                            callBack.onAnalyzeResult((System.currentTimeMillis() - startTime), true);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (callBack != null)
+                            callBack.onAnalyzeResult((System.currentTimeMillis() - startTime), false);
+                    }
+
+                    @Override
+                    public void onNext(Iterable<IndexFundsBean> indexFundsBeans) {
 //                            AppLogs.d(Constants.DB_LOG_KEY,value.toString());
-                            AppLogs.d(Constants.DB_LOG_KEY,"解析总时长：" + (System.currentTimeMillis() - startTime));
-                        }
+                        AppLogs.d(Constants.DB_LOG_KEY, "解析总时长：" + (System.currentTimeMillis() - startTime));
                     }
                 });
     }
@@ -94,5 +110,9 @@ public class ExcelDBHandler implements IDBHandler {
     @Override
     public void delete() {
 
+    }
+
+    public interface CallBack {
+        void onAnalyzeResult(long time, boolean success);
     }
 }
