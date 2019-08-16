@@ -133,9 +133,9 @@ public class PermissionUtils {
             }
             String[] unauthorizedMorePermissions = (String[]) permissionList.toArray(new String[permissionList.size()]);
             if (isFirst)// 用户之前已拒绝过权限申请
-                callBack.onUserHasAlreadyTurnedDown(unauthorizedMorePermissions);
-            else       // 用户之前已拒绝并勾选了不在询问、用户第一次申请权限。
                 callBack.onUserHasAlreadyTurnedDownAndDontAsk(unauthorizedMorePermissions);
+            else       // 用户之前已拒绝并勾选了不在询问、用户第一次申请权限。
+                callBack.onUserHasAlreadyTurnedDown(unauthorizedMorePermissions);
 
         }
     }

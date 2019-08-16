@@ -62,7 +62,8 @@ public class SplashActivity extends AppCompatActivity {
 
                     @Override
                     public void onUserHasAlreadyTurnedDownAndDontAsk(String... permission) {
-                        Toast.makeText(SplashActivity.this, "给权限谢谢，不给权限玩几把！", Toast.LENGTH_LONG).show();
+                        PermissionUtils.requestMorePermissions(SplashActivity.this, permissions, 1);
+
                     }
                 });
 
@@ -73,12 +74,13 @@ public class SplashActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1) {
             if (grantResults[0] != 0 || grantResults[1] != 0) {
-                Toast.makeText(SplashActivity.this, "不给权限玩几把！", Toast.LENGTH_LONG).show();
+                Toast.makeText(SplashActivity.this, "不给权限玩几把！", Toast.LENGTH_SHORT).show();
                 return;
             }
             new ProcessConfig().init();
             boolean isfirstInit = Preferences.getBoolean(IS_FIRST_INIT, true);
             if (isfirstInit) {//初始化DB数据
+                Toast.makeText(SplashActivity.this, "数据初始化中...", Toast.LENGTH_LONG).show();
                 ExcelDBHandler.getInstance().checkInitSheet(this, new ExcelDBHandler.CallBack() {
                     @Override
                     public void onAnalyzeResult(long time, boolean success) {
