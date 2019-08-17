@@ -16,13 +16,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <View
+            android:layout_width="1.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark" />
+
         <TextView
             android:id="@+id/date"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="@drawable/sheet_item_border_shape"
-            android:lines="1"
             android:gravity="center"
+            android:lines="1"
             android:text="@{indexFundsBean.toDateForm()}"
             android:textAppearance="?attr/textAppearanceListItem"
             tool:text="2019-06-06" />
@@ -32,9 +37,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:lines="1"
             android:background="@drawable/sheet_item_border_shape"
             android:gravity="center"
+            android:lines="1"
             android:text="@{indexFundsBean.closingPrice.toString()}"
             android:textAppearance="?attr/textAppearanceListItem"
             tool:text="2800" />
@@ -44,9 +49,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:lines="1"
             android:background="@drawable/sheet_item_border_shape"
             android:gravity="center"
+            android:lines="1"
             android:text="@{indexFundsBean.PE.toString()}"
             android:textAppearance="?attr/textAppearanceListItem"
             tool:text="8.9" />
@@ -57,8 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/sheet_item_border_shape"
-            android:lines="1"
             android:gravity="center"
+            android:lines="1"
             android:text="@{indexFundsBean.PB.toString()}"
             android:textAppearance="?attr/textAppearanceListItem"
             tool:text="1.2" />
@@ -68,9 +73,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:lines="1"
             android:background="@drawable/sheet_item_border_shape"
             android:gravity="center"
+            android:lines="1"
             android:text="@{indexFundsBean.ROE.toString()}"
             android:textAppearance="?attr/textAppearanceListItem"
             tool:text="16%" />
@@ -79,10 +84,10 @@
             android:id="@+id/eps"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:lines="1"
             android:layout_weight="1"
             android:background="@drawable/sheet_item_border_shape"
             android:gravity="center"
+            android:lines="1"
             android:text="@{indexFundsBean.EPS.toString()}"
             android:textAppearance="?attr/textAppearanceListItem"
             tool:text="3.6" />
@@ -92,12 +97,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:lines="1"
             android:background="@drawable/sheet_item_border_shape"
             android:gravity="center"
+            android:lines="1"
             android:text="@{indexFundsBean.netAssets.toString()}"
             android:textAppearance="?attr/textAppearanceListItem"
             tool:text="6.5" />
+        <View
+            android:layout_width="1.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark" />
 
     </LinearLayout>
 </layout>

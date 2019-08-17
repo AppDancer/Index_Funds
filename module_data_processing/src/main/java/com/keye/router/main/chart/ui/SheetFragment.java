@@ -59,7 +59,7 @@ public class SheetFragment extends Fragment implements ISheetsContract.ISheetVie
         if (presenter != null) {
             presenter.loadSheetDB(mSheetName);
         }
-        return binding.getRoot();
+        return null;
     }
 
     @Override
